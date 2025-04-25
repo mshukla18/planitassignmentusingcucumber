@@ -43,12 +43,12 @@ public class ContactPage extends BasePage {
     @FindBy(how = How.XPATH, using="//strong[starts-with(text(),'Thanks')]")
     private WebElement successMsg;
 
-    private final int timeoutForSuccessMsg = 15;
+    private final int timeoutForSuccessMsg = 18;
 
     public ContactPage(WebDriver webDriver) {
         super(webDriver);
         PageFactory.initElements(webDriver, this);
-        new WebDriverWait(webDriver, Duration.ofSeconds(5))
+        new WebDriverWait(webDriver, Duration.ofSeconds(pageTimeout))
                 .until(ExpectedConditions.elementToBeClickable(submit));
         logger.info("Contact Page is displayed");
     }

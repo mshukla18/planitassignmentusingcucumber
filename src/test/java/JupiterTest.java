@@ -131,7 +131,6 @@ public class JupiterTest {
                     "Quantity of item " + k + " does not match the test data");
             logger.info("Quantity of item " + k + " is correct");
             Double calculatedSubTotal = Double.parseDouble(cartItem.get("itemPrice").substring(1)) * testData.get(k);
-            System.out.println("cal " + calculatedSubTotal);
             Assert.assertEquals(cartItem.get("itemSubTotal").substring(1), calculatedSubTotal.toString(),
                     "Subtotal of item " + " does not match");
             logger.info("Subtotal of item " + k + " is correct");

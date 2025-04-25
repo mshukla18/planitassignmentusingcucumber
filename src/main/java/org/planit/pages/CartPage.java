@@ -24,7 +24,7 @@ public class CartPage extends BasePage {
     public CartPage(WebDriver webDriver) {
         super(webDriver);
         PageFactory.initElements(webDriver, this);
-        new WebDriverWait(webDriver, Duration.ofSeconds(5))
+        new WebDriverWait(webDriver, Duration.ofSeconds(pageTimeout))
                 .until(ExpectedConditions.elementToBeClickable(checkOutBtn));
         logger.info("Cart Page is displayed");
     }
@@ -40,7 +40,7 @@ public class CartPage extends BasePage {
                 itemDetails.put("itemQuantity",  item.findElement(By.xpath("parent::tr/td/input[@name='quantity']")).getAttribute("value"));
                 logger.info("Details for " + name + " itemPrice " + itemDetails.get("itemPrice")
                         + " itemQuantity " + itemDetails.get("itemQuantity")
-                + " itemSubTotal " + itemDetails.get("itemSubtotal"));
+                + " itemSubTotal " + itemDetails.get("itemSubTotal"));
                 return itemDetails;
             } catch (Exception e) { }
         }

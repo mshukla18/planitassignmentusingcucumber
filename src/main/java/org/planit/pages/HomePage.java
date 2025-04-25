@@ -21,7 +21,7 @@ public class HomePage extends BasePage {
     public HomePage(WebDriver webDriver) {
         super(webDriver);
         PageFactory.initElements(webDriver, this);
-        new WebDriverWait(webDriver, Duration.ofSeconds(5))
+        new WebDriverWait(webDriver, Duration.ofSeconds(pageTimeout))
                 .until(ExpectedConditions.elementToBeClickable(startShoppingBtn));
         logger.info("Home Page is displayed");
     }
