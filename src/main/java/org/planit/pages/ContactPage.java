@@ -50,6 +50,7 @@ public class ContactPage extends BasePage {
         PageFactory.initElements(webDriver, this);
         new WebDriverWait(webDriver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.elementToBeClickable(submit));
+        logger.info("Contact Page is displayed");
     }
 
     public void enterForename(String name) {
@@ -97,6 +98,7 @@ public class ContactPage extends BasePage {
         try {
             new WebDriverWait(webDriver, Duration.ofSeconds(timeoutForSuccessMsg))
                     .until(ExpectedConditions.textToBePresentInElement(successMsg, name));
+            logger.info("Success message is displayed after submitting the feedback");
             return true;
         } catch (Exception e) {
             return false;

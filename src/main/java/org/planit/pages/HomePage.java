@@ -23,6 +23,7 @@ public class HomePage extends BasePage {
         PageFactory.initElements(webDriver, this);
         new WebDriverWait(webDriver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.elementToBeClickable(startShoppingBtn));
+        logger.info("Home Page is displayed");
     }
 
     public void clickStartShoppingBtn() {

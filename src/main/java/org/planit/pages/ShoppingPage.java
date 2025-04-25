@@ -26,6 +26,7 @@ public class ShoppingPage extends BasePage {
         PageFactory.initElements(webDriver, this);
         new WebDriverWait(webDriver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.elementToBeClickable(buyBtn));
+        logger.info("Shopping Page is displayed");
     }
 
     public void clickCartButton() {

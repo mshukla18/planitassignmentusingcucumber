@@ -1,6 +1,6 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.opentelemetry.exporter.logging.SystemOutLogRecordExporter;
-import org.openqa.selenium.By;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.safari.SafariDriver;
@@ -9,19 +9,20 @@ import org.planit.pages.ContactPage;
 import org.planit.pages.HomePage;
 import org.planit.pages.ShoppingPage;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import static java.lang.Double.parseDouble;
-
 public class JupiterTest {
+
+    private static Logger logger = LogManager.getLogger(JupiterTest.class);
     WebDriver webDriver;
     Properties properties;
     final String propertyFileLocation = "src/test/resources/test.properties";
@@ -33,13 +34,11 @@ public class JupiterTest {
         properties.load(reader);
 
         webDriver = getDriver();
-
     }
 
     @BeforeMethod
     void startWithFreshApplication() {
         webDriver.get(properties.getProperty("application.url"));
-
     }
 
     @AfterClass
@@ -69,19 +68,25 @@ public class JupiterTest {
         contactPage.clickSubmit();
         Assert.assertEquals(contactPage.verifyErrorDisplayed("forename"),
                 true, "forename error is not displayed");
+        logger.info("forename error is displayed");
         Assert.assertEquals(contactPage.verifyErrorDisplayed("email"),
                 true, "email error is not displayed");
+        logger.info("Email error is displayed");
         Assert.assertEquals(contactPage.verifyErrorDisplayed("message"),
                 true, "message error is not displayed");
+        logger.info("Message error is displayed");
         contactPage.enterForename(testData.get("forename"));
         Assert.assertEquals(contactPage.verifyErrorDisplayed("forename"),
                 false, "forename error was not supposed to be displayed");
+        logger.info("forename error is not displayed");
         contactPage.enterEmail(testData.get("email"));
         Assert.assertEquals(contactPage.verifyErrorDisplayed("email"),
                 false, "email error was not supposed to be displayed");
+        logger.info("Email error is not displayed");
         contactPage.enterMessage(testData.get("message"));
         Assert.assertEquals(contactPage.verifyErrorDisplayed("message"),
                 false, "message error was not supposed to be displayed");
+        logger.info("Message error is not displayed");
     }
 
     @Test(invocationCount = 5)
@@ -121,15 +126,15 @@ public class JupiterTest {
             HashMap<String, String> cartItem = cartPage.getItemDetails(k);
             Assert.assertEquals(cartItem.get("itemPrice"), itemPrice.get(k),
                     "Price of item" + k + "not equal on cart page");
+            logger.info("Price of item " + k + " is correct");
             Assert.assertEquals(cartItem.get("itemQuantity"), testData.get(k).toString(),
                     "Quantity of item " + k + " does not match the test data");
+            logger.info("Quantity of item " + k + " is correct");
             Double calculatedSubTotal = Double.parseDouble(cartItem.get("itemPrice").substring(1)) * testData.get(k);
             System.out.println("cal " + calculatedSubTotal);
             Assert.assertEquals(cartItem.get("itemSubTotal").substring(1), calculatedSubTotal.toString(),
                     "Subtotal of item " + " does not match");
+            logger.info("Subtotal of item " + k + " is correct");
         });
-
-        System.out.println("hello");
     }
-
 }
