@@ -58,7 +58,7 @@ public class JupiterTest {
         }
     }
 
-    //@Test
+    @Test
     public void testContactPageErrorMsgs() {
         Map<String, String> testData = Map.of("forename","John",
                 "email", "test_example@example.com",
@@ -84,7 +84,7 @@ public class JupiterTest {
                 false, "message error was not supposed to be displayed");
     }
 
-    //@Test(invocationCount = 5)
+    @Test(invocationCount = 5)
     public void testContactPageHappyPath() {
         Map<String, String> testData = Map.of("forename","John",
                 "email", "test_example@example.com",
